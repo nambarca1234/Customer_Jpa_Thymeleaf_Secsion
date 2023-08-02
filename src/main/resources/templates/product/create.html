@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h2>Create Product</h2>
+<div style="position: absolute;left: 40%">
+  <form action="/product/save" method="post" th:object="${product}">
+
+    <input type="text" th:field="*{pid}" id="pid" hidden><br>
+    <label for="pName">Full name:</label><br>
+    <input type="text"  th:field="*{pname}" id="pName"  ><br><br>
+
+    <label for="cid">Category:</label>
+    <select name="aid" id="cid" th:field="*{cid}">
+      <option value="1">Iphone</option>
+      <option value="2">SamSung</option>
+      <option value="3">Qmobie</option>
+      <option value="4">Ipad</option>
+      <option value="5">Xiaomi</option>
+    </select><br><br>
+
+    <input type="submit" value="Submit">
+  </form>
+
+</div>
+
+
+
+</body>
+</html>

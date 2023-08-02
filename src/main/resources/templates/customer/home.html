@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="topnotch">
+    <a class="active" href="http://localhost:8080/customer">Home</a>
+    <a href="#About">About</a>
+    <a href="#contact">Contact</a>
+    <div class="search-container">
+        <form action="http://localhost:8080/customer/find" method="GET">
+            <input type="text" placeholder="Search..." name="cusName">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+</div>
+
+<div>
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>phone</th>
+        <th>aid</th>
+        <th>birthday</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="e:${list}">
+        <td th:text="${e.cusId}"></td>
+        <td th:text="${e.cusName}"></td>
+        <td th:text="${e.phone}"></td>
+        <td th:text="${e.aId}"></td>
+        <td th:text="${e.birthDay}"></td>
+        <td><a th:href="@{/customer/update/{cusId}(cusId=${e.cusId})}"> update </a></td>
+        <td><a th:href="@{/customer/delete/{cusId}(cusId=${e.cusId})}"> delete </a></td>
+    </tr>
+    </tbody>
+</table>
+<a href="/customer/create">Create</a>
+</div>
+
+</body>
+</html>

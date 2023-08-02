@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h2>Create Student</h2>
+<div style="position: absolute;left: 40%">
+    <form action="/student/save" method="post" th:object="${student}" enctype="multipart/form-data">
+
+        <input type="text" th:field="*{sid}" id="cusid" hidden><br>
+        <label for="sName">Full name:</label><br>
+        <input type="text"  th:field="*{sname}" id="sName"  ><br><br>
+        <p th:if="${#fields.hasErrors('sname')}" th:errors="*{sname}"></p>
+        <label for="birthday">birthday:</label><br>
+        <input type="date" id="birthday" th:field="*{birthday}"><br><br>
+        <label for="phone">phone:</label><br>
+        <input type="text" id="phone" th:field="*{phone}"  ><br>
+        <label for="aid">Address:</label>
+        <select name="aid" id="aid" th:field="*{address.aid}">
+            <option value="1">Ha Noi</option>
+            <option value="2">Vinh Phuc</option>
+            <option value="3">Ha Tinh</option>
+        </select><br><br>
+        <label>Avatar:</label><br>
+        <input type="file" name="file"><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+</div>
+
+
+
+</body>
+</html>

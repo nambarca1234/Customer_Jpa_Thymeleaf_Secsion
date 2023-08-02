@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h2>Update</h2>
+<div style="position: absolute;left: 40%">
+    <form action="http://localhost:8080/customer/save" method="post" th:object="${customer}">
+        
+        <input type="text" th:field="*{cusId}" id="cusId" hidden><br>
+        <label for="cusName">cus name:</label><br>
+        <input type="text"  th:field="*{cusName}" id="cusName"  ><br><br>
+        <label for="phone">phone:</label><br>
+        <input type="text" id="phone" th:field="*{phone}"  ><br>
+        <label for="birthday">birthday:</label><br>
+        <input type="date" id="birthday" th:field="*{birthDay}"><br><br>
+        <label for="aid">aid :</label><br>
+        <input type="text" id="aid" th:field="*{aId}"  ><br><br>
+
+
+
+        <input type="submit" value="Submit">
+    </form>
+
+</div>
+
+
+
+</body>
+</html>
