@@ -1,7 +1,7 @@
 package com.customer.service.impl;
 
-import com.customer.model.Product;
-import com.customer.model.ProductDto;
+import com.customer.common.Comm;
+import com.customer.model.*;
 import com.customer.repository.ProductRepository;
 import com.customer.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,8 +9,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +20,13 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl extends BaseResponse implements ProductService {
 
     private EntityManagerFactory factory;
     private EntityManager entityManager;
     private EntityTransaction transaction;
+
+
 
     @Autowired
     private ProductRepository productRepository;
@@ -92,5 +96,47 @@ public class ProductServiceImpl implements ProductService {
             products.add(dto);
         }
         return products;
+    }
+
+
+    @Override
+    public ResponseEntity<?> getListProductApiModel() {
+        WebClient webClient = WebClient.create(Comm.URL8088);
+        MyResponse myResponse = webClient.get()
+                .uri(Comm.URLGETPRODUCT)
+                .retrieve()
+                .bodyToMono(MyResponse.class).block();
+
+
+        List<ProductAPI> apiList = (List<ProductAPI>) myResponse.getData();
+        //ep kieu de tra ve data de ben nay hung va xu ly
+        System.out.println(apiList.get(0));
+
+
+        return getResponseEntity(myResponse.getData());
+    }
+
+    @Override
+    public ProductAPI getOne() {
+        WebClient webClient = WebClient.create(Comm.URL8088);
+        ProductAPI api = webClient.get()
+                .uri("/api/v1/product/getOne")
+                .retrieve()
+                .bodyToMono(ProductAPI.class).block();
+
+        System.out.println(api);
+        return api;
+    }
+
+    @Override
+    public ResponseEntity<?> postProductApi(ProductAPI productAPI) {
+        WebClient client = WebClient.create(Comm.URL8088);
+        MyResponse myResponse = client.post()
+                .uri("/api/v1/product/save")
+                .retrieve()
+                .bodyToMono(MyResponse.class)
+                .block();
+        System.out.println(myResponse.getData());
+        return getResponseEntity(myResponse.getData());
     }
 }

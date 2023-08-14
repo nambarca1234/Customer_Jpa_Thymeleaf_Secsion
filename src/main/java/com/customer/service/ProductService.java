@@ -2,7 +2,9 @@ package com.customer.service;
 
 
 import com.customer.model.Product;
+import com.customer.model.ProductAPI;
 import com.customer.model.ProductDto;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 public interface ProductService {
@@ -15,5 +17,9 @@ public interface ProductService {
     List<Product> findByCategory(int cid);
 
     List<ProductDto> getInfor();
+
+    ResponseEntity<?> getListProductApiModel();
+    ProductAPI getOne();
+    ResponseEntity<?> postProductApi(ProductAPI productAPI);
 
 }
